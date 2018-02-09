@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	>
+
+	<!-- 
+		byType : PersonService 클래스에서 setter의 파라미터 타입이 같은 것을 찾는것
+		byName : PerosnService 클래스에서 setter의 이름을 찾는것
+		constructor: PersonService 클래스에서 생성자중에서 파라미터 타입이 같은 생성자를 찾는다.
+	 -->
+
+	<bean id="service" class="bean.PersonService" autowire="byType"></bean>
+
+	<!-- 여기서의 name은 Service의 set에 해당되는 이름. -->
+	<bean name="person" class="bean.PersonImpl">
+		<constructor-arg>
+			<value type="java.lang.String">강동민</value>
+		</constructor-arg>
+	</bean>
+</beans>
