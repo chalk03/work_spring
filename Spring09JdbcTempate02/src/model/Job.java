@@ -1,20 +1,19 @@
 package model;
 
 public class Job {
-
+	
 	private String jobId;
 	private String jobTitle;
-	private Integer minsalary;
-	private Integer maxsalary;
+	private Integer minSalary;
+	private Integer maxSalary;
+	
+	public Job() {}
 
-	public Job() {
-	}
-
-	public Job(String jobId, String jobTitle, Integer minsalary, Integer maxsalary) {
+	public Job(String jobId, String jobTitle, Integer minSalary, Integer maxSalary) {
 		this.jobId = jobId;
 		this.jobTitle = jobTitle;
-		this.minsalary = minsalary;
-		this.maxsalary = maxsalary;
+		this.minSalary = minSalary;
+		this.maxSalary = maxSalary;
 	}
 
 	public String getJobId() {
@@ -33,20 +32,20 @@ public class Job {
 		this.jobTitle = jobTitle;
 	}
 
-	public Integer getMinsalary() {
-		return minsalary;
+	public Integer getMinSalary() {
+		return minSalary;
 	}
 
-	public void setMinsalary(Integer minsalary) {
-		this.minsalary = minsalary;
+	public void setMinSalary(Integer minSalary) {
+		this.minSalary = minSalary;
 	}
 
-	public Integer getMaxsalary() {
-		return maxsalary;
+	public Integer getMaxSalary() {
+		return maxSalary;
 	}
 
-	public void setMaxsalary(Integer maxsalary) {
-		this.maxsalary = maxsalary;
+	public void setMaxSalary(Integer maxSalary) {
+		this.maxSalary = maxSalary;
 	}
 
 	@Override
@@ -56,10 +55,10 @@ public class Job {
 		builder.append(jobId);
 		builder.append(", jobTitle=");
 		builder.append(jobTitle);
-		builder.append(", minsalary=");
-		builder.append(minsalary);
-		builder.append(", maxsalary=");
-		builder.append(maxsalary);
+		builder.append(", minSalary=");
+		builder.append(minSalary);
+		builder.append(", maxSalary=");
+		builder.append(maxSalary);
 		builder.append("]");
 		return builder.toString();
 	}
