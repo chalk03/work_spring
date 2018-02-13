@@ -37,3 +37,16 @@ INSERT INTO pet (pet_name, owner_name, price, birth_date)
     
 SELECT * FROM pet;
 SELECT * FROM owner;
+
+# pet 테이블과 owner 테이블을 조인한 후 
+# owner_name이 PARK이고, pet_name이 NABI인 행의 모든 정보를 출력하라.
+SELECT * FROM pet p, owner o 
+	WHERE p.owner_name = o.owner_name 
+	AND p.pet_name = 'NABI' 
+	AND o.owner_name = 'PARK';
+	
+# pet 테이블과 owner테이블을 조인한 후
+# owner_name이 HONG인 행의 모든 정보를 출력하라.
+SELECT * FROM owner o, pet p
+	WHERE o.owner_name = p.owner_name
+	AND o.owner_name = 'HONG';
