@@ -16,15 +16,11 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDao dao;
 	
 	public BoardServiceImpl() {}
-	
-	@Override
-	public void add(Board board) throws BoardException {
-		dao.insert(board);
-	}
 
 	@Override
-	public Board detail(String no) throws BoardException {
-		return dao.select(no);
+	public Board detail(String no) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -33,18 +29,21 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int count() throws BoardException{
-		return dao.boardCount();
+	public int count() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
-	public void modify(Board board) throws BoardException {
-		dao.update(board);
+	public void modify(Board board) {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void remove(String no) throws BoardException {
-		dao.delete(no);
+	public void remove(String no) {
+		// TODO Auto-generated method stub
+		
 	}
+
 }

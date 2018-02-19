@@ -3,26 +3,29 @@ package com.koitt.board.model;
 import java.io.Serializable;
 import java.util.Date;
 
+// Java Bean, VO(Value Object), DTO(Data Transfer Object)
 public class Board implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	private Integer no;		// 글 번호
+	private String title;	// 글 제목
+	private String content;	// 글 내용
+	private Integer userNo;	// 사용자 번호
+	private Date regdate;	// 등록일
+	
+	// 1. 기본생성자
+	public Board() {}
 
-	private Integer no;
-	private String title;
-	private String content;
-	private Integer userNo;
-	private Date regDate;
-
-	public Board() {
-	}
-
-	public Board(Integer no, String title, String content, Integer userNo, Date regDate) {
+	// 2. 생성자 (모든 필드 초기화)
+	public Board(Integer no, String title, String content, Integer userNo, Date regdate) {
 		this.no = no;
 		this.title = title;
 		this.content = content;
 		this.userNo = userNo;
-		this.regDate = regDate;
+		this.regdate = regdate;
 	}
 
+	// 3. getter, setter
 	public Integer getNo() {
 		return no;
 	}
@@ -47,52 +50,58 @@ public class Board implements Serializable {
 		this.content = content;
 	}
 
-	public Integer getuserNo() {
+	public Integer getUserNo() {
 		return userNo;
 	}
 
-	public void setuserNo(Integer userNo) {
+	public void setUserNo(Integer userNo) {
 		this.userNo = userNo;
 	}
 
-	public Date getRegDate() {
-		return regDate;
+	public Date getRegdate() {
+		return regdate;
 	}
 
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
 
+	// 3. hashCode
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + ((no == null) ? 0 : no.hashCode());
-		result = prime * result + ((regDate == null) ? 0 : regDate.hashCode());
+		result = prime * result + ((regdate == null) ? 0 : regdate.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((userNo == null) ? 0 : userNo.hashCode());
 		return result;
 	}
 
+	// 4. equals
 	@Override
 	public boolean equals(Object obj) {
+		// 4-1. 주소 비교
 		if (this == obj) {
 			return true;
 		}
-
+		
+		// 4-2. 타입 체크
 		if (!(obj instanceof Board)) {
 			return false;
 		}
-
+		
+		// 4-3. 글번호 비교하기위해 다운캐스팅
 		Board other = (Board) obj;
 		if (this.no.equals(other.no)) {
 			return true;
 		}
-
+		
 		return false;
 	}
 
+	// 5. toString 구현
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -104,9 +113,9 @@ public class Board implements Serializable {
 		builder.append(content);
 		builder.append(", userNo=");
 		builder.append(userNo);
-		builder.append(", regDate=");
-		builder.append(regDate);
+		builder.append(", regdate=");
+		builder.append(regdate);
 		builder.append("]");
 		return builder.toString();
-	}
+	}	
 }

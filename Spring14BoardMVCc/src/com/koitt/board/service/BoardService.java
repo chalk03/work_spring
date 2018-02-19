@@ -7,21 +7,18 @@ import com.koitt.board.model.BoardException;
 
 public interface BoardService {
 	
-	// 글 추가
-	public void add(Board board) throws BoardException;
-
 	// 글 상세정보
-	public Board detail(String no) throws BoardException;
+	public Board detail(String no);
 	
 	// 글 전체
 	public List<Board> list() throws BoardException;
 	
 	// 글 개수
-	public int count() throws BoardException;
+	public int count();
 	
 	// 글 수정하기
-	public void modify(Board board) throws BoardException;
+	public void modify(Board board);
 	
 	// 글 삭제하기
-	public void remove(String no) throws BoardException;
+	public void remove(String no);
 }
