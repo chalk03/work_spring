@@ -1,8 +1,11 @@
 package com.koitt.board.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,10 +25,10 @@ import com.koitt.board.service.FileService;
 public class BoardWebController {
 	
 	@Autowired
-	private BoardService boardservice;
+	private BoardService boardService;
 	
 	@Autowired
-	private FileService fileservice;
+	private FileService fileService;
 	
 	/*
 	 *  HTTP Method GET 방식으로 /board-list.do를 클라이언트가 요청하면
@@ -37,7 +40,7 @@ public class BoardWebController {
 		
 		try {
 			// service를 이용하여 글 목록 가져오기
-			list = boardservice.list();
+			list = boardService.list();
 			
 		} catch (BoardException e) {
 			// 예외가 발생하면 error키의 값을 이용하여 JSP에 표시
@@ -56,17 +59,33 @@ public class BoardWebController {
 	
 	// 글 상세 화면
 	@RequestMapping(value="/board-detail.do", method=RequestMethod.GET)
-	public String detail(Model model,
+	public String detail(Model model, HttpServletRequest request,
 			@RequestParam(value="no", required=true) String no) {
 		Board board = null;
+		String filename = null;
+		String imgPath = null;
 		
 		try {
-			board = boardservice.detail(no);
+			board = boardService.detail(no);
+			
+			// URL Encoding 된 파일명을 다시 Decoding해서 포워딩 
+			filename = board.getAttachment();
+			
+			imgPath = fileService.getImgPath(request, filename);
+			
 		} catch (BoardException e) {
+			System.out.println(e.getMessage());
 			model.addAttribute("error", "server");
+		} catch (FileException e) {
+			System.out.println(e.getMessage());
+			model.addAttribute("error", "encoding");
 		}
 		
 		model.addAttribute("board", board);
+		model.addAttribute("filename", filename);
+		if (imgPath != null && !imgPath.trim().isEmpty()) {
+			model.addAttribute("imgPath", imgPath);
+		}
 		
 		return "board-detail";
 	}
@@ -79,10 +98,10 @@ public class BoardWebController {
 	
 	// 글 추가 후, 글 목록 화면으로 이동
 	@RequestMapping(value="/board-add.do", method=RequestMethod.POST)
-	public String add(HttpServletRequest request, 
-			Integer userNo, 
-			String title, 
-			String content, 
+	public String add(HttpServletRequest request,
+			Integer userNo,
+			String title,
+			String content,
 			@RequestParam("attachment") MultipartFile attachment) {
 		
 		Board board = new Board();
@@ -91,8 +110,8 @@ public class BoardWebController {
 		board.setContent(content);
 		
 		try {
-			fileservice.add(request, attachment, board);
-			boardservice.add(board);
+			fileService.add(request, attachment, board);
+			boardService.add(board);
 			
 		} catch (BoardException e) {
 			request.setAttribute("error", "server");
@@ -116,12 +135,15 @@ public class BoardWebController {
 	
 	// 글 삭제 후, 글 목록 화면으로 이동
 	@RequestMapping(value="/board-remove.do", method=RequestMethod.POST)
-	public String remove(Model model, String no) {
+	public String remove(Model model, String no, HttpServletRequest request) {
 		try {
-			boardservice.remove(no);
+			String toDeleteFilename = boardService.remove(no);
+			fileService.remove(request, toDeleteFilename);
 			
 		} catch (BoardException e) {
 			model.addAttribute("error", "server");
+		} catch (FileException e) {
+			model.addAttribute("error", "file");
 		}
 		
 		return "redirect:board-list.do";
@@ -138,7 +160,7 @@ public class BoardWebController {
 			 * 수정하고자 하는 글의 정보를 가져와서
 			 * 글 수정하기 화면에 출력하기 위해 아래와 같이 호출
 			 */
-			board = boardservice.detail(no);
+			board = boardService.detail(no);
 			
 		} catch (BoardException e) {
 			model.addAttribute("error", "server");
@@ -153,7 +175,7 @@ public class BoardWebController {
 	@RequestMapping(value="/board-modify.do", method=RequestMethod.POST)
 	public String modify(Model model, Board board) {
 		try {
-			boardservice.modify(board);
+			boardService.modify(board);
 			
 		} catch (BoardException e) {
 			model.addAttribute("error", "server");
@@ -161,20 +183,25 @@ public class BoardWebController {
 		
 		return "redirect:board-list.do";
 	}
+	
+	/*
+	 * 다운로드 링크를 화면에서 클릭하면 아래와 같이 서버에 GET 방식으로 요청한다.
+	 * download.do?filename=파일명
+	 * 
+	 * 아래 RequestMapping 애노테이션 뜻은 아래와 같다.
+	 * 요청 URL은 /download.do
+	 * 요청 HTTP Method는 GET
+	 * 요청한 쿼리문자열의 변수명이 filename일 경우 아래 메소드를 실행 (params)
+	 */
+	@RequestMapping(value="/download.do", method=RequestMethod.GET, params="filename")
+	public void download(HttpServletRequest request, HttpServletResponse response, 
+			String filename) {
+		
+		try {
+			fileService.download(request, response, filename);
+			
+		} catch (FileException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
