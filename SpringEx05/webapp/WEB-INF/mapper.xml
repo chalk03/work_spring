@@ -5,11 +5,11 @@
   
   <mapper namespace="com.koitt.book.model.Book">
   	<insert id="insert-book" parameterType="Book">
-  		INSERT INTO book (title, author, publisher, price, description)
-  		VALUES (#{title}, #{author}, #{publisher}, #{price}, #{description}) 
+  		INSERT INTO book (title, author, publisher, price, description, attachment)
+  		VALUES (#{title}, #{author}, #{publisher}, #{price}, #{description}, #{attachment}) 
   	</insert>
   	
-  	<select id="select-book" parameterType="String" resultType="book">
+  	<select id="select-book" parameterType="String" resultType="Book">
   		SELECT * FROM book WHERE isbn = #{isbn}
   	</select>
   	
@@ -22,7 +22,8 @@
   	</delete>
   	
   	<update id="update-book" parameterType="Book">
-  		UPDATE book SET title = #{title}, author = #{author}, publisher = #{publisher}, price = #{price}, description = #{description}
+  		UPDATE book SET title = #{title}, author = #{author}, publisher = #{publisher}, 
+  		price = #{price}, description = #{description}, attachment = #{attachment}
   		WHERE isbn = #{isbn}
   	</update>
   	

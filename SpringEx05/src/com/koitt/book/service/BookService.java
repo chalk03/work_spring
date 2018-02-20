@@ -21,8 +21,8 @@ public interface BookService {
 	public int count() throws BookException;
 
 	// 도서 수정하기
-	public void modify(Book book) throws BookException;
+	public String modify(Book book) throws BookException;
 
 	// 도서 삭제하기
-	public void remove(String isbn) throws BookException;
+	public String remove(String isbn) throws BookException;
 }

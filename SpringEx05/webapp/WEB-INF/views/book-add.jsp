@@ -4,7 +4,7 @@
 <head><title>도서 등록</title></head>
 <body>
 	<h1>도서 등록</h1>
-	<form action="book-add.do" method="post">
+	<form action="book-add.do" method="post" enctype="multipart/form-data">
 		<div>
 			<label>도서제목<input type="text" name="title"></label>
 		</div>
@@ -15,11 +15,14 @@
 			<label>출판사<input type="text" name="publisher"></label>
 		</div>
 		<div>
-			<label>가격<input type="text" name="price"></label>
+			<label>가격<input type="number" name="price"></label>
 		</div>
 		<div>
 			<label>책설명</label>
 			<textarea name="description"></textarea>
+		</div>
+		<div>
+			<label>첨부파일 <input type="file" name="attachment"></label>
 		</div>
 		<input type="submit" value="도서 등록">
 		<input type="reset" value="내용 지우기"><br>
