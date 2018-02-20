@@ -22,7 +22,8 @@
   	</delete>
   	
   	<update id="update-board" parameterType="Board">
-  		UPDATE board SET title = #{title}, content = #{content}, regdate = CURDATE() WHERE no = #{no}
+  		UPDATE board SET title = #{title}, content = #{content}, regdate = CURDATE(), attachment = #{attachment} 
+  		WHERE no = #{no}
   	</update>
   	
   	<select id="selectcount-board" resultType="int">
