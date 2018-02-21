@@ -2,9 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<head><title>회원 목록</title></head>
+<head><title>사용자 목록</title></head>
 <body>
-	<h1>회원 목록</h1>
+	<h1>사용자 목록</h1>
 	<table>
 		<thead>
 			<tr>
@@ -18,9 +18,9 @@
 			<c:forEach items="${ list }" var="users">
 				<tr>
 					<td>${ users.no }</td>
-					<td>${ users.email }</a></td>
+					<td>${ users.email }</td>
 					<td>${ users.name }</td>
-					<%-- <td>${ users.attachment }</td> --%>
+					<td><img width="100" height="100" src="http://localhost:8080/Spring14BoardMVC/upload/${ users.attachment }"></td>
 				</tr>
 			</c:forEach>
 		</tbody>

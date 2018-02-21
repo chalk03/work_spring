@@ -10,22 +10,21 @@ import com.koitt.board.model.Users;
 import com.koitt.board.model.UsersException;
 
 @Repository
-public class UsersDaoImpl implements UsersDao{
-
+public class UsersDaoImpl implements UsersDao {
+	
 	private static final String MAPPER_NS = Users.class.getName();
 	
 	@Autowired
 	private SqlSession session;
 	
 	public UsersDaoImpl() {}
-	
+
 	@Override
 	public List<Users> selectAll() throws UsersException {
 		List<Users> list = null;
 		
 		try {
-			list = session.selectList(MAPPER_NS + ".select-all-users");
-			
+			list = session.selectList(MAPPER_NS + ".select-all-users"); 
 			
 		} catch (Exception e) {
 			throw new UsersException(e.getMessage());
@@ -36,20 +35,20 @@ public class UsersDaoImpl implements UsersDao{
 
 	@Override
 	public Users select(Integer no) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void insert(Users uesrs) {
-		// TODO Auto-generated method stub
-		
+	public void insert(Users users) throws UsersException {
+		try {
+			session.insert(MAPPER_NS + ".insert-users", users);
+			
+		} catch (Exception e) {
+			throw new UsersException(e.getMessage());
+		}
 	}
 
-	@Override
-	public void delete(String email) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void deleteUserTypes(Integer no) {
@@ -59,6 +58,12 @@ public class UsersDaoImpl implements UsersDao{
 
 	@Override
 	public void update(Users users) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(String email) throws UsersException {
 		// TODO Auto-generated method stub
 		
 	}

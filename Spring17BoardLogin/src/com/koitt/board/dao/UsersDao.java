@@ -11,7 +11,7 @@ public interface UsersDao {
 	
 	public Users select(Integer no) throws UsersException;
 	
-	public void insert(Users uesrs) throws UsersException;
+	public void insert(Users users) throws UsersException;
 	
 	public void delete(String email) throws UsersException;
 	

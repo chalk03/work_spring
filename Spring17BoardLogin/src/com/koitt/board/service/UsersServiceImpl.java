@@ -12,7 +12,7 @@ import com.koitt.board.model.UsersException;
 
 @Service
 @Transactional
-public class UsersServiceImpl implements UsersService{
+public class UsersServiceImpl implements UsersService {
 	
 	@Autowired
 	private UsersDao dao;
@@ -24,25 +24,24 @@ public class UsersServiceImpl implements UsersService{
 
 	@Override
 	public Users detail(Integer no) throws UsersException {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void add(Users users) throws UsersException {
-		
-		
+		dao.insert(users);
 	}
 
 	@Override
 	public String remove(Integer no, String password) throws UsersException {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String modify(Users users) throws UsersException {
-		
+		// TODO Auto-generated method stub
 		return null;
 	}
 
