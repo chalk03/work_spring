@@ -20,7 +20,7 @@
 					<td>${ users.no }</td>
 					<td>${ users.email }</td>
 					<td>${ users.name }</td>
-					<td><img width="100" height="100" src="${ uploadPath }/${ users.attachment }"></td>
+					<td><img width="50" height="50" src="${ uploadPath }/${ users.attachment }"></td>
 				</tr>
 			</c:forEach>
 		</tbody>

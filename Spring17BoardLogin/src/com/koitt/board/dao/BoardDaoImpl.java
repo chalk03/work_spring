@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.koitt.board.model.Board;
@@ -51,9 +50,10 @@ public class BoardDaoImpl implements BoardDao {
 		List<Board> list = null;
 		
 		try {
-			list = session.selectList(MAPPER_NS + ".selectAll-board");
+			list = session.selectList(MAPPER_NS + ".select-all-board");
 			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			throw new BoardException(e.getMessage());
 		}
 		
@@ -65,9 +65,10 @@ public class BoardDaoImpl implements BoardDao {
 		Integer result = null;
 		
 		try {
-			result = session.selectOne(MAPPER_NS + ".selectcount-board"); 
+			result = session.selectOne(MAPPER_NS + ".select-count-board");
 			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			throw new BoardException(e.getMessage());
 		}
 		
@@ -80,6 +81,7 @@ public class BoardDaoImpl implements BoardDao {
 			session.update(MAPPER_NS + ".update-board", board);
 			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			throw new BoardException(e.getMessage());
 		}
 	}
@@ -90,6 +92,7 @@ public class BoardDaoImpl implements BoardDao {
 			session.delete(MAPPER_NS + ".delete-board", no);
 			
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			throw new BoardException(e.getMessage());
 		}
 	}

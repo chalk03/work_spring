@@ -3,10 +3,15 @@ package com.koitt.board.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.koitt.board.dao.AuthorityDao;
 import com.koitt.board.dao.UsersDao;
+import com.koitt.board.model.Authority;
 import com.koitt.board.model.Users;
 import com.koitt.board.model.UsersException;
 
@@ -15,22 +20,24 @@ import com.koitt.board.model.UsersException;
 public class UsersServiceImpl implements UsersService {
 	
 	@Autowired
-	private UsersDao dao;
+	private UsersDao usersDao;
+	
+	@Autowired
+	private AuthorityDao authorityDao;
 
 	@Override
 	public List<Users> list() throws UsersException {
-		return dao.selectAll();
+		return usersDao.selectAll();
 	}
 
 	@Override
 	public Users detail(Integer no) throws UsersException {
-		// TODO Auto-generated method stub
-		return null;
+		return usersDao.select(no);
 	}
 
 	@Override
 	public void add(Users users) throws UsersException {
-		dao.insert(users);
+		usersDao.insert(users);
 	}
 
 	@Override
@@ -43,6 +50,28 @@ public class UsersServiceImpl implements UsersService {
 	public String modify(Users users) throws UsersException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Users detailByEmail(String email) throws UsersException {
+		return usersDao.selectByEmail(email);
+	}
+
+	@Override
+	public Authority getAuthority(Integer id) throws UsersException {
+		return authorityDao.select(id);
+	}
+
+	@Override
+	public UserDetails getPrincipal() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Object principal = auth.getPrincipal();
+		if (principal instanceof UserDetails) {
+			return (UserDetails) principal;
+		}
+		
+		return null;
+
 	}
 
 }

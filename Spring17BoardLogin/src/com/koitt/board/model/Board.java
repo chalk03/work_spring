@@ -19,7 +19,8 @@ public class Board implements Serializable {
 	public Board() {}
 
 	// 2. 생성자 (모든 필드 초기화)
-	public Board(Integer no, String title, String content, Integer userNo, Date regdate, String attachment) {
+	public Board(Integer no, String title, String content, Integer userNo, 
+			Date regdate, String attachment) {
 		this.no = no;
 		this.title = title;
 		this.content = content;
@@ -68,7 +69,7 @@ public class Board implements Serializable {
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	
+
 	public String getAttachment() {
 		return attachment;
 	}
@@ -138,10 +139,9 @@ public class Board implements Serializable {
 		builder.append(regdate);
 		builder.append(", attachment=");
 		builder.append(attachment);
-		builder.append("]");
 		builder.append(", users=");
 		builder.append(users);
 		builder.append("]");
 		return builder.toString();
-	}
+	}	
 }

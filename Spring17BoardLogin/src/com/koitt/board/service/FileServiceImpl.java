@@ -195,3 +195,10 @@ public class FileServiceImpl implements FileService {
 		return request.getContextPath() + UPLOAD_FOLDER;
 	}
 }
+
+
+
+
+
+
+

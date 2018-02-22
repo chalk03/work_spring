@@ -25,3 +25,9 @@ public interface BoardService {
 	// 글 삭제하기
 	public String remove(String no) throws BoardException;
 }
+
+
+
+
+
+

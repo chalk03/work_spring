@@ -13,23 +13,24 @@
   		SELECT * FROM board WHERE no = #{no}
   	</select>
   	
-  	<select id="selectAll-board" resultType="Board">
+  	<select id="select-all-board" resultType="Board">
   		SELECT * FROM board ORDER BY no DESC
   	</select>
-  		
+  	
+  	<select id="select-count-board" resultType="int">
+  		SELECT COUNT(*) cnt FROM board
+  	</select>
+  	
+  	<update id="update-board" parameterType="Board">
+  		UPDATE board SET title = #{title}, content = #{content}, regdate = CURDATE(),
+  		attachment = #{attachment}
+  		WHERE no = #{no}  
+  	</update>
+  	
   	<delete id="delete-board" parameterType="String">
   		DELETE FROM board WHERE no = #{no}
   	</delete>
   	
-  	<update id="update-board" parameterType="Board">
-  		UPDATE board SET title = #{title}, content = #{content}, regdate = CURDATE(), attachment = #{attachment} 
-  		WHERE no = #{no}
-  	</update>
-  	
-  	<select id="selectcount-board" resultType="int">
-  		SELECT COUNT(*) cnt FROM board
-  	</select>
-
   </mapper>
   
   

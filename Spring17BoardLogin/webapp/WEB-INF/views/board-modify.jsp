@@ -15,7 +15,7 @@
 			<textarea name="content">${ board.content }</textarea>
 		</div>
 		<div>
-			<label>첨부파일 <input type="file" name ="attachment"></label>
+			<label>첨부파일 <input type="file" name="attachment"></label>
 		</div>
 		<input type="hidden" name="no" value="${ board.no }">
 		<input type="submit" value="글 수정">
