@@ -2,6 +2,9 @@ package com.koitt.board.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.koitt.board.model.Authority;
@@ -32,4 +35,7 @@ public interface UsersService {
 	 */
 	
 	public UserDetails getPrincipal();
+	
+	// 로그아웃
+	public void logout(HttpServletRequest req, HttpServletResponse resp);
 }
