@@ -9,7 +9,7 @@
 		<input type="email" name="email" placeholder="이메일 입력" required>
 		<input type="password" name="password" placeholder="비밀번호 입력" required>
 		<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }">
-		<input type="submit" value="로그인"><br>
+		<input type="submit" value="로그인">
 	</form>
 	<a href="<c:url value='/join.do'/>">회원가입</a>
 	<c:if test="${ param.error == 'login' }">
