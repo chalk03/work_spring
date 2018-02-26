@@ -16,6 +16,11 @@ import com.koitt.book.model.Authority;
 import com.koitt.book.model.Users;
 import com.koitt.book.model.UsersException;
 
+/*
+ * 각 사용자마다 권한을 설정하기 위해 아래와 같은 클래스를 작성한다.
+ * 스프링은 아래 클래스를 객체화해서 사용하게 된다.
+ * (applicationContext.xml user-service-ref 속성 참고)
+ */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 	
@@ -89,3 +94,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 		return auths;
 	}
 }
+
+
+
+
+
+

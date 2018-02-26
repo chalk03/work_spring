@@ -80,8 +80,6 @@ public class Users implements Serializable {
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
 	}
-	
-	
 
 	public Set<Authority> getAuthorities() {
 		return authorities;
@@ -102,7 +100,7 @@ public class Users implements Serializable {
 		result = prime * result + ((no == null) ? 0 : no.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((attachment == null) ? 0 : attachment.hashCode());
-		result = prime * result + ((authorities == null) ? 0 : attachment.hashCode());
+		result = prime * result + ((authorities == null) ? 0 : authorities.hashCode());
 		return result;
 	}
 

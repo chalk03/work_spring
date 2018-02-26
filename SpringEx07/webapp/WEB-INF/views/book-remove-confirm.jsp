@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head><title>도서 삭제 확인화면</title></head>
@@ -11,6 +11,6 @@
 		<input type="submit" value="삭제하기">
 		<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }">
 	</form>
-	<a href="<c:url value='/book/book-list.do"'/>">도서 목록으로 이동</a>
+	<a href="<c:url value='/book/book-list.do'/>">도서 목록으로 이동</a>
 </body>
 </html>

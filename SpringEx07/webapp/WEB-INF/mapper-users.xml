@@ -10,10 +10,10 @@
   	
   	<resultMap type="Users" id="UsersResultMap">
   		<id property="no" column="no" />
-  		<result property="email" column="email" />
-  		<result property="password" column="password" />
-  		<result property="name" column="name" />
-  		<result property="attachment" column="attachment" />
+  		<result property="email" column="email"/>
+  		<result property="password" column="password"/>
+  		<result property="name" column="name"/>
+  		<result property="attachment" column="attachment"/>
   		<collection property="authorities" ofType="Authority">
   			<id property="id" column="id" />
   			<result property="name" column="aname"/>
@@ -26,7 +26,7 @@
 			(SELECT users_authority.users_no, authority.id, authority.name
 			FROM users_authority, authority
 			WHERE users_authority.authority_id = authority.id) ua
-		WHERE u.no = ua.users_no AND u.no = #{no}
+			WHERE u.no = ua.users_no AND u.no = #{no}
   	</select>
   	
   	<select id="select-users-by-email" parameterType="String" resultMap="UsersResultMap">
@@ -39,7 +39,7 @@
   	</select>
   	
   	<select id="select-last-insert-id" resultType="int">
-  		SELECT LAST_INSERT_ID()
+ 		SELECT LAST_INSERT_ID()
   	</select>
   	
   	<insert id="insert-users" parameterType="Users">
@@ -48,11 +48,16 @@
   	</insert>
   	
   	<insert id="insert-authority" parameterType="Users">
-  		INSERT INTO users_authority(user_no, authority_id) VALUES
+ 		INSERT INTO users_authority(users_no, authority_id) VALUES
   		<foreach collection="authorities" item="item" separator=", ">
   			(#{no}, #{item.id})
   		</foreach>
   	</insert>
+  	
+  	<update id="update-users" parameterType="Users">
+ 		UPDATE users SET password = #{password}, name = #{name}, attachment = #{attachment}
+ 		WHERE no = #{no}
+  	</update>
   </mapper>
   
   

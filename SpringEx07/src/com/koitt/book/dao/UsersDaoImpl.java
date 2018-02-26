@@ -11,37 +11,38 @@ import com.koitt.book.model.UsersException;
 
 @Repository
 public class UsersDaoImpl implements UsersDao{
-	
+
 	private static final String MAPPER_NS = Users.class.getName();
-	
+
 	@Autowired
 	private SqlSession session;
-	
+
 	public UsersDaoImpl() {}
 
 	@Override
 	public List<Users> selectAll() throws UsersException {
 		List<Users> list = null;
-		
+
 		try {
 			list = session.selectList(MAPPER_NS + ".select-all-users");
 		} catch (Exception e) {
 			throw new UsersException(e.getMessage());
 		}
-		
+
 		return list;
 	}
 
 	@Override
 	public Users select(Integer no) throws UsersException {
 		Users users = null;
-		
+
 		try {
-			users = session.selectOne(MAPPER_NS + ".select_users", no);
+			users = session.selectOne(MAPPER_NS + ".select-users", no);
+
 		} catch (Exception e) {
 			throw new UsersException(e.getMessage());
 		}
-		
+
 		return users;
 	}
 
@@ -52,62 +53,65 @@ public class UsersDaoImpl implements UsersDao{
 		} catch (Exception e) {
 			throw new UsersException(e.getMessage());
 		}
-		
+
 	}
 
 	@Override
 	public void delete(Integer no) throws UsersException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void deleteUserTypes(Integer no) throws UsersException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void update(Users users) throws UsersException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Users selectByEmail(String email) throws UsersException {
-		Users users = null;
-		
 		try {
-			users = session.selectOne(MAPPER_NS + ".select-user-by-email", email);
-			
+			session.update(MAPPER_NS + ".update-users", users);
+
 		} catch (Exception e) {
 			throw new UsersException(e.getMessage());
 		}
-		
-		return users;
 	}
+		@Override
+		public Users selectByEmail(String email) throws UsersException {
+			Users users = null;
 
-	@Override
-	public void insertAuthority(Users users) throws UsersException {
-		try {
-			session.insert(MAPPER_NS + ".insert-authority", users);
-		} catch(Exception e) {
-			throw new UsersException(e.getMessage());
+			try {
+				users = session.selectOne(MAPPER_NS + ".select-users-by-email", email);
+
+			} catch (Exception e) {
+				throw new UsersException(e.getMessage());
+			}
+
+			return users;
 		}
-		
-	}
 
-	@Override
-	public Integer selectLastInsertId() throws UsersException {
-		Integer lastInsertId = null;
-		
-		try {
-			lastInsertId = session.selectOne(MAPPER_NS + ".select-last-insert-id");
-		} catch (Exception e) {
-			throw new UsersException(e.getMessage());
+		@Override
+		public void insertAuthority(Users users) throws UsersException {
+			try {
+				session.insert(MAPPER_NS + ".insert-authority", users);
+
+			} catch (Exception e) {
+				throw new UsersException(e.getMessage());
+			}
 		}
-		
-		return lastInsertId;
-	}
 
-}
+		@Override
+		public Integer selectLastInsertId() throws UsersException {
+			Integer lastInsertId = null;
+			try {
+				lastInsertId = session.selectOne(MAPPER_NS + ".select-last-insert-id");
+
+			} catch (Exception e) {
+				throw new UsersException(e.getMessage());
+			}
+
+			return lastInsertId;
+		}
+
+	}

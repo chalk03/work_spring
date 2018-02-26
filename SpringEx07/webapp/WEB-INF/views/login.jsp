@@ -4,8 +4,8 @@
 <html>
 <head><title>로그인 페이지</title></head>
 <body>
-	<h1>로그인</h1>
-	<form action="<c:url value='login-processing'/>" method="post">
+	<h1>로그인 페이지</h1>
+	<form action="<c:url value='/login-processing'/>" method="post">
 		<input type="email" name="email" placeholder="이메일 입력" required>
 		<input type="password" name="password" placeholder="비밀번호 입력" required>
 		<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }">

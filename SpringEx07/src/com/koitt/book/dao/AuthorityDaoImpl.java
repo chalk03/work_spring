@@ -8,15 +8,15 @@ import com.koitt.book.model.Authority;
 import com.koitt.book.model.UsersException;
 
 @Repository
-public class AuthorityDaoImpl implements AuthorityDao{
-
+public class AuthorityDaoImpl implements AuthorityDao {
+	
 	private static final String MAPPER_NS = Authority.class.getName();
 	
 	@Autowired
 	private SqlSession session;
 	
 	public AuthorityDaoImpl() {}
-	
+
 	@Override
 	public Authority select(Integer id) throws UsersException {
 		Authority authority = null;
@@ -32,3 +32,7 @@ public class AuthorityDaoImpl implements AuthorityDao{
 	}
 
 }
+
+
+
+

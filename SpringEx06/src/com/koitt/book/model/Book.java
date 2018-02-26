@@ -7,6 +7,7 @@ public class Book implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer isbn;
+	private Integer userNo;		// 사용자 번호
 	private String title;
 	private String author;
 	private String publisher;
@@ -19,8 +20,9 @@ public class Book implements Serializable {
 	public Book() {}
 	
 	// 
-	public Book(Integer isbn, String title, String author, String publisher, Integer price, String description, String attachment) {
+	public Book(Integer isbn, Integer userNo, String title, String author, String publisher, Integer price, String description, String attachment) {
 		this.isbn = isbn;
+		this.userNo = userNo;
 		this.title = title;
 		this.author = author;
 		this.publisher = publisher;
@@ -35,6 +37,15 @@ public class Book implements Serializable {
 
 	public void setIsbn(Integer isbn) {
 		this.isbn = isbn;
+	}
+
+	
+	public Integer getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(Integer userNo) {
+		this.userNo = userNo;
 	}
 
 	public String getTitle() {

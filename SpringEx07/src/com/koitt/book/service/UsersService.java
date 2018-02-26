@@ -31,5 +31,6 @@ public interface UsersService {
 	
 	public void logout(HttpServletRequest req, HttpServletResponse resp);
 	
-	
+	// 비밀번호 일치 여부 확인하는 메소드
+	public boolean isPasswordMatched(String oldPassword) throws UsersException;
 }

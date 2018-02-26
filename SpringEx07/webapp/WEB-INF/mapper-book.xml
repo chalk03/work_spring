@@ -5,15 +5,15 @@
   
   <mapper namespace="com.koitt.book.model.Book">
   	<insert id="insert-book" parameterType="Book">
-  		INSERT INTO book (title, author, publisher, price, description, attachment)
-  		VALUES (#{title}, #{author}, #{publisher}, #{price}, #{description}, #{attachment}) 
+  		INSERT INTO book (user_no, title, author, publisher, price, description, attachment)
+  		VALUES (#{userNo}, #{title}, #{author}, #{publisher}, #{price}, #{description}, #{attachment}) 
   	</insert>
   	
   	<resultMap type="Book" id="bookResultMap">
-  		<id property="isbn" column="isbn" />
+  		<id property="isbn" column="isbn"/>
+  		<result property="userNo" column="user_no"/>
   		<result property="title" column="title"/>
   		<result property="author" column="author"/>
-  		<result property="userNo" column="user_no"/>
   		<result property="publisher" column="publisher"/>
   		<result property="price" column="price"/>
   		<result property="attachment" column="attachment"/>
@@ -23,16 +23,16 @@
   		<result property="users.attachment" column="uattachment"/>
   	</resultMap>
   	
-  	<select id="select-book" parameterType="String" resultType="Book">
-  		SELECT b.isbn, b.title, b.author, b.user_no, b.publisher, b.price, b.attachment, b.description,
+  	<select id="select-book" parameterType="String" resultMap="bookResultMap">
+  		SELECT b.isbn, b.user_no, b.title, b.author, b.publisher, b.price, b.attachment, b.description,
   			u.email, u.name, u.attachment as "uattachment"
 		FROM book b, users u
 		WHERE b.user_no = u.no AND b.isbn = #{isbn} ORDER BY b.isbn DESC;
-  	</select>
+   	</select>
   	
-  	<select id="selectAll-book" resultType="bookResultMap">
-  		SELECT b.isbn, b.title, b.author, b.user_no, b.publisher, b.price, b.attachment, b.description, 
-			u.email, u.name, u.attachment as "uattachment"
+  	<select id="selectAll-book" resultMap="bookResultMap">
+  		SELECT b.isbn, b.user_no, b.title, b.author, b.publisher, b.price, b.attachment, b.description,
+  			u.email, u.name, u.attachment as "uattachment"
 		FROM book b, users u
 		WHERE b.user_no = u.no ORDER BY b.isbn DESC
   	</select>

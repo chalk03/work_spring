@@ -6,9 +6,9 @@
 <body>
 	<h1>도서 자세히보기</h1>
 	<dl>
-		<dt>도서번호</dt><dd>${ book.isbn }</dd>
 		<dt>작성자</dt><dd>${ book.users.name }(${ book.users.email })</dd>
 		<dt>작성자 사진</dt><dd><img src="${ uploadPath }/${ book.users.attachment }"></dd>
+		<dt>도서번호</dt><dd>${ book.isbn }</dd>
 		<dt>제목</dt><dd>${ book.title }</dd>
 		<dt>저자</dt><dd>${ book.author }</dd>
 		<dt>출판사</dt><dd>${ book.publisher }</dd>

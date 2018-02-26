@@ -5,9 +5,9 @@
 <head><title>도서 등록</title></head>
 <body>
 	<h1>도서 등록</h1>
-	<form action="<c:url value='/board/book-add.do'/>" method="post" enctype="multipart/form-data">
+	<form action="<c:url value='/book/book-add.do'/>" method="post" enctype="multipart/form-data">
 		<div>
-			<span>작성자: </span>
+			<span>등록자: </span>
 			<span>${ users.name }(${ users.email })</span>
  		</div>
 		<div>
@@ -31,7 +31,7 @@
 		</div>
 		<input type="submit" value="도서 등록">
 		<input type="reset" value="내용 지우기"><br>
-		<a href="<c:url value='/book/book-list.do'/> ">도서 목록으로 이동</a>
+		<a href="<c:url value='/book/book-list.do'/>">도서 목록으로 이동</a>
 		<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }">
 		<input type="hidden" name="userNo" value="${ users.no }">
 	</form>

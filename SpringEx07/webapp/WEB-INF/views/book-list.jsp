@@ -9,9 +9,9 @@
 	<table>
 		<thead>
 			<tr>
+				<th>등록자</th>
 				<th>책 번호</th>
 				<th>책 제목</th>
-				<th>작성자</th>
 				<th>저자</th>
 				<th>출판사</th>
 				<th>가격</th>
@@ -21,9 +21,10 @@
 		<tbody>
 			<c:forEach items="${ list }" var="book">
 				<tr>
+					<td>${ book.users.name }(${ book.users.email })</td>
 					<td>${ book.isbn }</td>
 					<td><a href="<c:url value='/book/book-detail.do?isbn=${ book.isbn }'/>">${ book.title }</a></td>
-					<td>${ book.users.name }(${ book.users.email })</td>
+					<td>${ book.author }</td>
 					<td>${ book.publisher }</td>
 					<td>${ book.price }</td>
 					<td>${ book.description }</td>
