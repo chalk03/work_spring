@@ -27,4 +27,7 @@ public interface BoardDao {
 	
 	// 게시글 개수 가져오기
 	public int getCount() throws BoardException;
+	
+	// 자동증가한 글 번호 가져오기
+	public Integer selectLastInsertId() throws BoardException;
 }
