@@ -32,12 +32,6 @@ public class BookServiceImpl implements BookService{
 	}
 
 	@Override
-	public int count() throws BookException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public String modify(Book book) throws BookException {
 		Book item = dao.select(book.getIsbn().toString());
 		String filename = item.getAttachment(); 

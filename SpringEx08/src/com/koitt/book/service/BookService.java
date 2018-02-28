@@ -17,9 +17,6 @@ public interface BookService {
 	// 도서 전체
 	public List<Book> list() throws BookException;
 
-	// 도서 개수
-	public int count() throws BookException;
-
 	// 도서 수정하기
 	public String modify(Book book) throws BookException;
 

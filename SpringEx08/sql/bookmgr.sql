@@ -1,4 +1,5 @@
 #DDL(Data Definition Language)
+DROP TABLE board;
 DROP TABLE book;
 DROP TABLE users_authority;
 DROP TABLE authority;
