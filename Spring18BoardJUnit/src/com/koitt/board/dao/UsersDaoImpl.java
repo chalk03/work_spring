@@ -117,6 +117,31 @@ public class UsersDaoImpl implements UsersDao {
 		return lastInsertId;
 	}
 
+	@Override
+	public void deleteAll() throws UsersException {
+		try {
+			session.selectOne(MAPPER_NS + ".select-all-users");
+			
+		} catch (Exception e) {
+			throw new UsersException(e.getMessage());
+		}
+		
+	}
+
+	@Override
+	public Integer getCount() throws UsersException {
+		Integer count = null;
+		
+		try {
+			count = session.selectOne(MAPPER_NS + ".count-users");
+			
+		} catch (Exception e) {
+			throw new UsersException(e.getMessage());
+		}
+		
+		return count;
+	}
+
 }
 
 
