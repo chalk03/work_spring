@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -28,9 +27,6 @@ import com.koitt.board.model.UsersException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="/test/config/applicationContext.xml")
 public class JUnitTest {
-
-	@Autowired
-	private ApplicationContext context;
 
 	// 픽스쳐(fixture)
 	@Autowired
@@ -132,15 +128,15 @@ public class JUnitTest {
 		 */
 		Users usersget1 = usersDao.selectByEmail(users1.getEmail());
 		assertThat(usersget1.getName(), is(users1.getName()));
-		assertTrue(passwordEncoder.matches("1234", users1.getPassword()));
+		assertTrue(passwordEncoder.matches("1234", usersget1.getPassword()));
 		
 		Users usersget2 = usersDao.selectByEmail(users2.getEmail());
 		assertThat(usersget2.getName(), is(users2.getName()));
-		assertTrue(passwordEncoder.matches("1234", users2.getPassword()));
+		assertTrue(passwordEncoder.matches("1234", usersget2.getPassword()));
 		
 		Users usersget3 = usersDao.selectByEmail(users3.getEmail());
 		assertThat(usersget3.getName(), is(users3.getName()));
-		assertTrue(passwordEncoder.matches("1234", users3.getPassword()));
+		assertTrue(passwordEncoder.matches("1234", usersget3.getPassword()));
 	}
 	
 	// 게시글 추가, 가져오기 테스트
