@@ -9,33 +9,56 @@
 
 	<bean id="mySqlItemReader" class="org.springframework.batch.item.database.JdbcCursorItemReader" scope="step">
 		<property name="dataSource" ref="dataSource" />
-		<property name="sql" value="SELECT * FROM user WHERE age > #{jobParameters['age']}" />
+		<property name="sql" value="SELECT * FROM board" />
 		<property name="rowMapper">
-			<bean class="com.koitt.model.UserRowMapper" />
+			<bean class="com.koitt.model.BoardRowMapper" />
 		</property>
 	</bean>
 	
-	<!-- ItemWriter 빈 생성 -->
-	<bean id="csvItemWriter" class="org.springframework.batch.item.xml.StaxEventItemWriter">
-		<property name="resource" value="file:c:/sample/ex05/output.xml" />
-		<property name="marshaller" ref="userMarshaller" />
-		<property name="rootTagName" value="users" />
+	<!-- ItemWriter 빈 생성 (2번 예제의 ItemWriter와 동일) -->
+	 <bean id="csvItemWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
+		<property name="resource" value="file:c:/test/prac03/board.csv" />
+		<property name="appendAllowed" value="false" />
+		<property name="lineAggregator">
+			<bean
+				class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
+				<property name="delimiter" value="," />
+				<property name="fieldExtractor">
+					<bean
+						class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
+						<property name="names" value="no, title, content, userNo, regdate, attachment" />
+					</bean>
+				</property>
+			</bean>
+		</property>
 	</bean>
 	
-	<bean id="userMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
-		<property name="aliases">
-			<util:map id="aliases">
-				<entry key="board" value="com.koitt.model.Board" />
-			</util:map>
-		</property>
+	<!-- ItemProcessor 빈 생성 -->
+	 <bean id="itemProcessor" class="com.koitt.model.CustomItemProcessor" />
+	
+	<!-- Tasklet 빈 생성 -->
+	<bean id="mailSendTasklet" class="com.koitt.model.MailSendingTasklet">
+		<property name="directory" value="file:c:/test/prac03/board.csv" />
+	</bean>
+	<bean id="fileDeletingTasklet" class="com.koitt.model.FileDeletingTasklet">
+		<property name="directory" value="file:c:/test/prac03/" />
 	</bean>
 	
 	<!-- Batch Job 생성 -->
 	<batch:job id="mySqlToCsvJob">
-		<batch:step id="step1">
+		<batch:step id="step1" next="step2">
 			<batch:tasklet>
-				<batch:chunk reader="mySqlItemReader" writer="csvItemWriter" commit-interval="1" />
+				<batch:chunk reader="mySqlItemReader" processor="itemProcessor" writer="csvItemWriter" commit-interval="1" />
 			</batch:tasklet>
+		</batch:step>
+		<batch:step id="step2" next="step3">
+			<batch:tasklet ref="mailSendTasklet" />
+		</batch:step>
+		<batch:step id="step3" next="step4">
+			<batch:tasklet ref="fileDeletingTasklet" />
+		</batch:step>
+		<batch:step id="step4">
+			<batch:tasklet ref="fileDeletingTasklet" />
 		</batch:step>
 	</batch:job>
 </beans>
