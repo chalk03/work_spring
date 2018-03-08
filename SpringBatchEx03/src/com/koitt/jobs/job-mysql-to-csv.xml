@@ -15,6 +15,9 @@
 		</property>
 	</bean>
 	
+	<!-- ItemProcessor 빈 생성 -->
+	 <bean id="itemProcessor" class="com.koitt.model.CustomItemProcessor" />
+	
 	<!-- ItemWriter 빈 생성 (2번 예제의 ItemWriter와 동일) -->
 	 <bean id="csvItemWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
 		<property name="resource" value="file:c:/test/prac03/board.csv" />
@@ -32,9 +35,6 @@
 			</bean>
 		</property>
 	</bean>
-	
-	<!-- ItemProcessor 빈 생성 -->
-	 <bean id="itemProcessor" class="com.koitt.model.CustomItemProcessor" />
 	
 	<!-- Tasklet 빈 생성 -->
 	<bean id="mailSendTasklet" class="com.koitt.model.MailSendingTasklet">

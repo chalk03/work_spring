@@ -7,12 +7,15 @@ public class CustomItemProcessor implements ItemProcessor<Board, Board>{
 	@Override
 	public Board process(Board item) throws Exception {
 		
+		/*
+		 *  CSV에 빈 문자열이 아닌 "NULL" 문자열로 출력하기 위해
+		 *  Processor에서 데이터를 처리/가공한다.
+		 */
+		
 		if(item.getAttachment() == null) {
 			item.setAttachment("null");
+		} 
 		
-		} else {
-			System.out.println(item);
-		}
-		return item;
+		return item;	// ItemWriter로 전달하기 위해 return
 	}
 }
