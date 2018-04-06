@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	<div id="target"></div>
+	<button id="button1">GET CARS</button>
+	
+	<script src="js/jquery-3.3.1.js"></script>
+	<script>
+		$(document).ready(function () {
+			$("#button1").click(function () {
+				$.get("http://localhost:8080/SrpingAjax/cars", function(data, status) {
+					
+				});
+			});
+		});
+	</script>
+</body>
+</html>
