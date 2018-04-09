@@ -1,8 +1,11 @@
+#데이터베이스 인코딩 변경
+ALTER DATABASE koitt CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
 #DDL(Data Definition Language)
-DROP TABLE board;
-DROP TABLE users_authority;
-DROP TABLE authority;
-DROP TABLE users;
+DROP TABLE IF EXISTS board;
+DROP TABLE IF EXISTS users_authority;
+DROP TABLE IF EXISTS authority;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
 	no			INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -103,27 +106,28 @@ FROM users u,
 	WHERE users_authority.authority_id = authority.id) ua
 WHERE u.no = ua.users_no AND u.no = 3;
 
-# 4. Board 테이블과 users 테이블 EQUI JOIN
+# 4. board 테이블과 users 테이블 EQUI JOIN
 SELECT b.no, b.title, b.content, b.user_no, b.regdate, b.attachment, 
-	u.email, u.name, u.attachment AS "uattachment"
+	u.email, u.name, u.attachment as "uattachment"
 FROM board b, users u
 WHERE b.user_no = u.no ORDER BY b.no DESC;
 
-# 5. 4번 SQL문에서 하나의 게시물을 선택하기 위한 SQL문 
-SELECT b.no, b.title, b.content, b.user_no, b.regdate, b.attachment, 
-			u.email, u.name, u.attachment AS "uattachment"
-FROM board b, users u
-WHERE b.user_no = u.no  AND b.no = 1 ORDER BY b.no DESC;
 
-# 6. 사용자 번호 3번 유저와 같이 관리자 권한과 일반 사용자 권한을 함께 입력할 경우(Oracle 버전)
+# 5. 4번 SQL문에서 하나의 게시물을 선택하기 위한 SQL문
+SELECT b.no, b.title, b.content, b.user_no, b.regdate, b.attachment, 
+  	u.email, u.name, u.attachment as "uattachment"
+FROM board b, users u
+WHERE b.user_no = u.no AND b.no = 10 ORDER BY b.no DESC;
+
+# 6. 사용자 번호 3번 유저와 같이 관리자 권한과 일반사용자 권한을 함께 입력할 경우 (Oracle)
 INSERT ALL
-  INTO users_authority(users_no, authority_id)
-  VALUES (3, 10)
-  INTO users_authority(users_no, authority_id)
-  VALUES (3, 20)
+	INTO users_authority(users_no, authority_id)
+  	VALUES (3, 10)
+  	INTO users_authority(users_no, authority_id)
+  	VALUES (3, 20)
 SELECT * FROM DUAL;
 
 # 6-1. 6번을 MySQL 버전으로 변경
-INSERT INTO users_authority(users.no, authority_id) VALUES
+INSERT INTO users_authority(users_no, authority_id) VALUES
 (8, 10),
 (8, 20);
