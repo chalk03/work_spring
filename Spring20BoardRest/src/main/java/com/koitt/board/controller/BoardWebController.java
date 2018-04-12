@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,7 +40,7 @@ public class BoardWebController {
 	 *  HTTP Method GET 방식으로 /board-list.do를 클라이언트가 요청하면
 	 *  아래 메소드 호출
 	 */
-	@GetMapping("/board-list.do")
+	@RequestMapping("/board-list.do")
 	public String list(Model model) {
 		List<Board> list = null;
 		

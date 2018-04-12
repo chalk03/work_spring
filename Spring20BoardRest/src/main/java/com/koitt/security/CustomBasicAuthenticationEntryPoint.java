@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
 
-public class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
-
+@Component
+public class CustomBasicAuthenticationEntryPoint 
+	extends BasicAuthenticationEntryPoint {
+	
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
@@ -19,9 +22,9 @@ public class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntr
 		response.addHeader("WWW-Autheticate", "Basic realm=" + getRealmName());
 		
 		PrintWriter writer = response.getWriter();
-		writer.println("HTTP Status 401: " + authException.getMessage());
+		writer.println("HTTP Status 401 : " + authException.getMessage());
 	}
-	
+
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		this.setRealmName("MY_TEST_REALM");
